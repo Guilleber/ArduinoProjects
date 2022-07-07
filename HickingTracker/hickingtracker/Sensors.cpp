@@ -6,7 +6,7 @@ Sensors::Sensors() {
 	return;
 }
 
-float Sensors::getTemperature() {
+const float Sensors::getTemperature() {
 	float RT, VR, ln, TX, VRT;
 	
 	VRT = analogRead(THERMISTOR_PIN);

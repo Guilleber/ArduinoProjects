@@ -14,7 +14,7 @@
 class Sensors {
 public:
 	Sensors();
-	float getTemperature();
+	const float getTemperature();
 };
 
 
