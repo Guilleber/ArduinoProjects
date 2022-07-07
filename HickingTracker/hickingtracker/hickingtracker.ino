@@ -1,26 +1,15 @@
-#define RT0 10000
-#define T0 298.15 //273.15 + 25 = 298.15K
-#define B 3950
-
-#define R1 10000
+#include "Sensors.h"
 
 
-float RT, VR, ln, TX, VRT;
+Sensors sensors;
 
 void setup() {
   Serial.begin(9600);
+  sensors = Sensors();
 }
 
 void loop() {
-  VRT = analogRead(A0);
-  VRT = (5. / 1023.) * VRT;
-  VR = 5. - VRT;
-  RT = VRT / (VR / R1);
-
-  ln = log(RT / RT0);
-  TX = (1 / ((ln / B) + (1 / T0)));
-
-  TX = TX - 273.15;
+  float TX = sensors.getTemperature();
 
   Serial.print("Temperature:");
   Serial.print("\t");
