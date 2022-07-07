@@ -1,6 +1,6 @@
 #include "Sensors.h"
 
-#define INT_PIN 4
+#define INT_PIN 3
 
 
 Sensors sensors;
@@ -9,6 +9,8 @@ volatile int state = 0;
 
 void plop() {
   state = (state+1)%5;
+  Serial.print(state);
+  Serial.print("\n");
 }
 
 void setup() {
@@ -20,6 +22,4 @@ void setup() {
 
 void loop() {
   delay(1000);
-  Serial.print(state);
-  Serial.print("\n");
 }
