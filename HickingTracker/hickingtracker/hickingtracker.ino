@@ -1,18 +1,18 @@
-/*#include "Controller.h"
+#include "Controller.h"
 
 
 Controller controller;
 
 void setup() {
-  Serial.begin(9600);
+  controller.init();
 }
 
 void loop() {
-	controller.refreshFrame();
+	controller.refresh();
 	controller.sleep(1000);
-}*/
+}
 
-#include <Adafruit_GFX.h>    // Core graphics library
+/*#include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
 #include <SPI.h>
 
@@ -330,4 +330,4 @@ void mediabuttons() {
   tft.fillRoundRect(69, 98, 20, 45, 5, ST77XX_RED);
   // play color
   tft.fillTriangle(42, 20, 42, 60, 90, 40, ST77XX_GREEN);
-}
+}*/
