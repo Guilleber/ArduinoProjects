@@ -1,25 +1,13 @@
-#include "Sensors.h"
-
-#define INT_PIN 3
+#include "Controller.h"
 
 
-Sensors sensors;
-
-volatile int state = 0;
-
-void plop() {
-  state = (state+1)%5;
-  Serial.print(state);
-  Serial.print("\n");
-}
+Controller controller;
 
 void setup() {
   Serial.begin(9600);
-  sensors = Sensors();
-  pinMode(INT_PIN, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(INT_PIN), plop, FALLING);
 }
 
 void loop() {
-  delay(1000);
+	controller.refreshFrame();
+	controller.sleep(1000);
 }

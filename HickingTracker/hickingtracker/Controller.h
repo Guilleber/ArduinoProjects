@@ -3,8 +3,12 @@
 
 #include "Arduino.h"
 
-#include "GPSTrackingMemory.h"
+//#include "GPSTrackingMemory.h"
 #include "Sensors.h"
+
+#include <TinyGPS++.h>
+
+enum Screen {General, Location, Map};
 
 
 class Controller {
@@ -14,10 +18,12 @@ public:
 	void sleep(int time);
 	const void refreshFrame();
 private:
-	const void drawFrame();
+	//const void drawFrame();
+  
+  Screen curr_screen = General;
 
-	Sensors sensors;
-	GPSTrackingMemory tracking_mem;
+	Sensors sensors {};
+	//GPSTrackingMemory tracking_mem;
 };
 
 

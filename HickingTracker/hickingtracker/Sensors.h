@@ -13,8 +13,8 @@
 #define R1 10000
 #define THERMISTOR_PIN A0
 
-#define GPS_RXPIN 3
-#define GPS_TXPIN 4
+#define GPS_RXPIN 3 //white
+#define GPS_TXPIN 4 //green
 #define GPS_BAUD 9600
 
 
