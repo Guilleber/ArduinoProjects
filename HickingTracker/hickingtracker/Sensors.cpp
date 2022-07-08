@@ -1,21 +1,20 @@
 #include "Sensors.h"
 #include "Arduino.h"
-#include "GPSPos.h"
 
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h>
 
 
 Sensors::Sensors() {
-	this.gpsSerial = SoftwareSerial(GPS_RXPIN, GPS_TXPIN);
-	this.gpsSerial.begin(GPS_BAUD);
-	this.gps = TinyGPSPlus();
+	//this->gpsSerial = SoftwareSerial(GPS_RXPIN, GPS_TXPIN);
+	this->gpsSerial.begin(GPS_BAUD);
+	//this->gps = TinyGPSPlus();
 	return;
 }
 
 void Sensors::update() {
-	while(this.gpsSerial.available()) {
-		gps.encode(GPS_SoftSerial.read());
+	while(this->gpsSerial.available()) {
+		gps.encode(gpsSerial.read());
 	}
 	return;
 }
@@ -35,6 +34,6 @@ const float Sensors::getTemperature() {
 	return TX;
 }
 
-const GPSPos Sensors::getGPSPosition() {
-	
+TinyGPSPlus* Sensors::getGPSData() {
+	return &this->gps;
 }

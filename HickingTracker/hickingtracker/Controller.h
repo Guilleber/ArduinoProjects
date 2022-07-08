@@ -4,7 +4,6 @@
 #include "Arduino.h"
 
 #include "GPSTrackingMemory.h"
-#include "GPSPos.h"
 #include "Sensors.h"
 
 

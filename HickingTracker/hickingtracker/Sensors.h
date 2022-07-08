@@ -2,7 +2,6 @@
 #define Sensors_h
 
 #include "Arduino.h"
-#include "GPSPos.h"
 
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h>
@@ -24,10 +23,10 @@ public:
 	Sensors();
 	void update();
 	const float getTemperature();
-	const GPSPos getGPSPosition();
+	TinyGPSPlus* getGPSData();
 private:
-	TinyGPSPlus gps;
-	SoftwareSerial gpsSerial;
+	TinyGPSPlus gps {};
+	SoftwareSerial gpsSerial {GPS_RXPIN, GPS_TXPIN};
 };
 
 

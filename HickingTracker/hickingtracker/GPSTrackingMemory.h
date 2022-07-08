@@ -5,8 +5,6 @@
 #include <SPI.h>
 #include <SD.h>
 
-#include "GPSPos.h"
-
 
 class GPSTrackingMemory {
 public:
