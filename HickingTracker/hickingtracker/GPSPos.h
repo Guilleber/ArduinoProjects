@@ -2,13 +2,23 @@
 #define GPSPos_h
 
 
-class GPSPos {
-public:
-	GPSPos(float latitude, float longitude);
-	
-	float latitude;
+struct GPSPos {
 	float longitude;
-};
+	float latitude;
+	float altitude;
+}
+
+struct GPSTime {
+	int hours;
+	int minutes;
+	int seconds;
+}
+
+struct GPSDate {
+	int day;
+	int month;
+	int year;
+}
 
 
 #endif
