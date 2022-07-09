@@ -3,8 +3,7 @@
 
 #include "Arduino.h"
 
-#include "GPSTrackingMemory.h"
-#include "Utils.h"
+//#include "GPSTrackingMemory.h"
 #include "Sensors.h"
 
 #include <TinyGPS++.h>
@@ -13,17 +12,19 @@
 #include <Adafruit_ST7735.h>
 #include <SPI.h>
 
-#define NB_SCREENS 2;
+#define NB_SCREENS (uint8_t)2;
 enum Screen {Main, Detail};
 
-#define TFT_CS   10
-#define TFT_RST  8
-#define TFT_DC   9
+#define TFT_CS   (uint8_t)10
+#define TFT_RST  (uint8_t)8
+#define TFT_DC   (uint8_t)9
 
-#define TFT_MOSI 11
-#define TFT_SCLK 13
+#define TFT_MOSI (uint8_t)11
+#define TFT_SCLK (uint8_t)13
 
-#define BUTTON_PIN 2
+#define BUTTON_PIN (uint8_t)2
+
+#define LOCAL_TIME (int8_t)-4
 
 
 class Controller {
@@ -31,7 +32,7 @@ public:
 	Controller();
   void init();
 	void switchScreen();
-	void sleep(int time);
+	void sleep(const int time);
 	const void refresh();
 private:
   Screen curr_screen = Detail;

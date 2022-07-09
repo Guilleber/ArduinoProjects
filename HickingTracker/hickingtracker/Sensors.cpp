@@ -6,9 +6,7 @@
 
 
 Sensors::Sensors() {
-	//this->gpsSerial = SoftwareSerial(GPS_RXPIN, GPS_TXPIN);
 	this->gpsSerial.begin(GPS_BAUD);
-	//this->gps = TinyGPSPlus();
 	return;
 }
 

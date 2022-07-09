@@ -1,8 +1,7 @@
 #include "Controller.h"
 #include "Arduino.h"
 
-#include "GPSTrackingMemory.h"
-#include "Utils.h"
+//#include "GPSTrackingMemory.h"
 #include "Sensors.h"
 
 #include <TinyGPS++.h>
@@ -51,7 +50,7 @@ const void Controller::refresh() {
     time_canvas.setFont(&FreeMonoBold18pt7b);
     time_canvas.setCursor(0, 22);
     if(gps->time.isValid()) {
-      int local_hour = getLocalHour(gps->time.hour());
+      int local_hour = (gps->time.hour()+LOCAL_TIME)%24;
       if(local_hour < 10)
         time_canvas.print('0');
       time_canvas.print(local_hour);
@@ -82,7 +81,7 @@ const void Controller::refresh() {
 
     this->disp.setCursor(50, 90);
     this->disp.print(F("Temp: "));
-    this->disp.print((int)this->sensors.getTemperature());
+    this->disp.print((uint8_t)this->sensors.getTemperature());
     this->disp.print(F(" C  "));
   } else if(curr_screen == Detail) {
     this->disp.setTextColor(ST77XX_WHITE, ST77XX_BLACK);
@@ -90,7 +89,7 @@ const void Controller::refresh() {
     time_canvas.setFont(&FreeMonoBold12pt7b);
     time_canvas.setCursor(0, 14);
     if(gps->time.isValid()) {
-      int local_hour = getLocalHour(gps->time.hour());
+      int local_hour = (gps->time.hour()+LOCAL_TIME)%24;
       if(local_hour < 10)
         time_canvas.print('0');
       time_canvas.print(local_hour);
