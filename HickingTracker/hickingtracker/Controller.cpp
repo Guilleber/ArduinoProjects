@@ -22,7 +22,7 @@ void Controller::init() {
   this->disp.fillScreen(ST77XX_BLACK);
   this->refresh();
   
-  Serial.begin(9600);
+  //Serial.begin(9600);
 }
 
 void Controller::switchScreen() {
@@ -46,27 +46,26 @@ const void Controller::refresh() {
 
   if(curr_screen == Main) {
     this->disp.setTextColor(ST77XX_WHITE, ST77XX_BLACK);
-    GFXcanvas1 time_canvas(125, 25);
-    time_canvas.setFont(&FreeMonoBold18pt7b);
-    time_canvas.setCursor(0, 22);
+    this->disp.setTextSize(3);
+    this->disp.setCursor(40, 25);
     if(gps->time.isValid()) {
       int local_hour = (gps->time.hour()+LOCAL_TIME)%24;
       if(local_hour < 10)
-        time_canvas.print('0');
-      time_canvas.print(local_hour);
-      time_canvas.print(F(":"));
+        this->disp.print('0');
+      this->disp.print(local_hour);
+      this->disp.print(F(":"));
       if(gps->time.minute() < 10)
-        time_canvas.print('0');
-      time_canvas.print(gps->time.minute());
+        this->disp.print('0');
+      this->disp.print(gps->time.minute());
     } else {
-      time_canvas.print(F("##:##"));
+      this->disp.print(F("##:##"));
     }
-    this->disp.drawBitmap(30, 25, time_canvas.getBuffer(), 125, 25, ST77XX_WHITE, ST77XX_BLACK);
+    this->disp.setTextSize(1);
     
     this->disp.setCursor(50, 70);
     this->disp.print(F("Lat: "));
     if (gps->location.isValid())
-      this->disp.print(gps->location.lat(), 4);
+      this->disp.print(gps->location.lat(), 2);
     else
       this->disp.print(F("None"));
     this->disp.print(' ');
@@ -74,7 +73,7 @@ const void Controller::refresh() {
     this->disp.setCursor(50, 80);
     this->disp.print(F("Lng: "));
     if (gps->location.isValid())
-      this->disp.print(gps->location.lng(), 4);
+      this->disp.print(gps->location.lng(), 2);
     else
       this->disp.print(F("None"));
     this->disp.print(F(" "));
@@ -85,24 +84,65 @@ const void Controller::refresh() {
     this->disp.print(F(" C  "));
   } else if(curr_screen == Detail) {
     this->disp.setTextColor(ST77XX_WHITE, ST77XX_BLACK);
-    GFXcanvas1 time_canvas(85, 16);
-    time_canvas.setFont(&FreeMonoBold12pt7b);
-    time_canvas.setCursor(0, 14);
+    this->disp.setTextSize(2);
+    this->disp.setCursor(55, 4);
     if(gps->time.isValid()) {
       int local_hour = (gps->time.hour()+LOCAL_TIME)%24;
       if(local_hour < 10)
-        time_canvas.print('0');
-      time_canvas.print(local_hour);
-      time_canvas.print(":");
+        this->disp.print('0');
+      this->disp.print(local_hour);
+      this->disp.print(":");
       if(gps->time.minute() < 10)
-        time_canvas.print('0');
-      time_canvas.print(gps->time.minute());
+        this->disp.print('0');
+      this->disp.print(gps->time.minute());
     } else {
-      time_canvas.print(F("##:##"));
+      this->disp.print(F("##:##"));
     }
-    this->disp.drawBitmap(45, 5, time_canvas.getBuffer(), 85, 16, ST77XX_WHITE, ST77XX_BLACK);
 
     this->disp.drawLine(2, 26, 158, 26, ST77XX_WHITE);
+
+    this->disp.setTextSize(1);
+    this->disp.setCursor(2, 34);
+    this->disp.print(F("LATITUDE  : "));
+    if (gps->location.isValid()) {
+      if(gps->location.lat() >= 0)
+        this->disp.print(" ");
+      this->disp.print(gps->location.lat(), 2);
+    } else
+      this->disp.print(F(" ##.##"));
+    this->disp.print(' ');
+
+    this->disp.setCursor(2, 44);
+    this->disp.print(F("LONGITUDE : "));
+    if (gps->location.isValid()) {
+      if(gps->location.lng() >= 0)
+        this->disp.print(" ");
+      this->disp.print(gps->location.lng(), 2);
+    } else
+      this->disp.print(F(" ##.##"));
+    this->disp.print(F(" "));
+
+    this->disp.setCursor(2, 64);
+    this->disp.print(F("ALTITUDE  :  "));
+    if (gps->altitude.isValid()) {
+      this->disp.print((uint16_t)gps->altitude.meters());
+      if(gps->altitude.meters() < 1000)
+        this->disp.print(' ');
+      if(gps->altitude.meters() < 100)
+        this->disp.print(' ');
+      if(gps->altitude.meters() < 10)
+        this->disp.print(' ');
+      this->disp.print('m');
+    } else
+      this->disp.print(F("####m"));
+
+    this->disp.setCursor(2, 74);
+    this->disp.print(F("AIR TEMP  : "));
+    int temp = (int8_t)this->sensors.getTemperature();
+    if(temp >= 0)
+      this->disp.print(' ');
+    this->disp.print(temp);
+    this->disp.print(F("  C"));
   }
   interrupts();
 	return;
