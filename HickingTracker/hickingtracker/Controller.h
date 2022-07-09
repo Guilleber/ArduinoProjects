@@ -3,16 +3,18 @@
 
 #include "Arduino.h"
 
-//#include "GPSTrackingMemory.h"
+#include "GPSTrackingMemory.h"
+#include "Utils.h"
 #include "Sensors.h"
 
 #include <TinyGPS++.h>
 #include <Adafruit_GFX.h>
+#include <Fonts/FreeSans9pt7b.h>
 #include <Adafruit_ST7735.h>
 #include <SPI.h>
 
 #define NB_SCREENS 2;
-enum Screen {General, Map};
+enum Screen {Main, Detail};
 
 #define TFT_CS   10
 #define TFT_RST  8
@@ -20,6 +22,8 @@ enum Screen {General, Map};
 
 #define TFT_MOSI 11
 #define TFT_SCLK 13
+
+#define BUTTON_PIN 2
 
 
 class Controller {
@@ -30,7 +34,7 @@ public:
 	void sleep(int time);
 	const void refresh();
 private:
-  Screen curr_screen = General;
+  Screen curr_screen = Detail;
 
 	Sensors sensors {};
   Adafruit_ST7735 disp {TFT_CS, TFT_DC, TFT_RST};

@@ -3,10 +3,10 @@
 
 #include "Arduino.h"
 #include <SPI.h>
-#include <SD.h>
+//#include <SD.h>
 
 
-class GPSTrackingMemory {
+/*class GPSTrackingMemory {
 public:
 	explicit GPSTrackingMemory(String name);
 	void seek(int line);
@@ -16,7 +16,7 @@ public:
 private:
 	File path_file;
 	int nb_pos;
-};
+};*/
 
 
 #endif
