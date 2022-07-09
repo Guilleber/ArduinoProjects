@@ -14,3 +14,10 @@
 | LED        | 3.3V        | Backlighting |
 
 ## GPS Module
+
+| GPS Pin     | Arduino Pin | Description  |
+|:-----------:|:-----------:| ------------ |
+| VCC (red)   | 5V          | Power        |
+| GND (black) | GND         | Ground       |
+| RX (white)  | D3          |              |
+| TX (green)  | D4          |              |
