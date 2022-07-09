@@ -6,8 +6,6 @@
 
 #include <TinyGPS++.h>
 #include <Adafruit_GFX.h>
-#include <Fonts/FreeMonoBold18pt7b.h>
-#include <Fonts/FreeMonoBold12pt7b.h>
 #include <Adafruit_ST7735.h>
 #include <SPI.h>
 
