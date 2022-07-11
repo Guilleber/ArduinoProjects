@@ -3,18 +3,19 @@
 
 #include "Arduino.h"
 
-//#include "GPSTrackingMemory.h"
+#include "GPSTrackingMemory.h"
 #include "Sensors.h"
 
 #include <TinyGPS++.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7735.h>
 #include <SPI.h>
+#include <SD.h>
 
 #define NB_SCREENS (uint8_t)2;
 enum Screen {Main, Detail};
 
-#define TFT_CS   (uint8_t)10
+#define TFT_CS   (uint8_t)7
 #define TFT_RST  (uint8_t)8
 #define TFT_DC   (uint8_t)9
 
@@ -22,6 +23,8 @@ enum Screen {Main, Detail};
 #define TFT_SCLK (uint8_t)13
 
 #define BUTTON_PIN (uint8_t)2
+
+#define SD_PIN (uint8_t)10
 
 #define LOCAL_TIME (int8_t)-4
 
@@ -35,6 +38,7 @@ public:
 	const void refresh();
 private:
   Screen curr_screen = Detail;
+  bool is_SD_initialized = false;
 
 	Sensors sensors {};
   Adafruit_ST7735 disp {TFT_CS, TFT_DC, TFT_RST};

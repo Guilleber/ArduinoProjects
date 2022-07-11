@@ -1,13 +1,14 @@
 #include "Controller.h"
 #include "Arduino.h"
 
-//#include "GPSTrackingMemory.h"
+#include "GPSTrackingMemory.h"
 #include "Sensors.h"
 
 #include <TinyGPS++.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_ST7735.h>
 #include <SPI.h>
+#include <SD.h>
 
 
 Controller::Controller() {
@@ -19,8 +20,10 @@ void Controller::init() {
   this->disp.setRotation(1);
   this->disp.fillScreen(ST77XX_BLACK);
   this->refresh();
-  
-  //Serial.begin(9600);
+
+  //init SD card
+  if(SD.begin(SD_PIN))
+    this->is_SD_initialized = true;
 }
 
 void Controller::switchScreen() {
