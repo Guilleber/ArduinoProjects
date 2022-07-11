@@ -22,8 +22,7 @@ void Controller::init() {
   this->refresh();
 
   //init SD card
-  if(SD.begin(SD_PIN))
-    this->is_SD_initialized = true;
+  Serial.begin(9600);
 }
 
 void Controller::switchScreen() {
@@ -45,12 +44,23 @@ const void Controller::refresh() {
   noInterrupts();
 	TinyGPSPlus* gps = this->sensors.getGPSData();
 
+  if(gps->time.isValid() && gps->date.isValid() && gps->location.isValid()) {
+    char timestamp[21] = "";
+    format_timestamp(timestamp, gps->date.year(), gps->date.month(), gps->date.day(), gps->time.hour(), gps->time.minute());
+    this->disp.setCursor(0, 0);
+    this->disp.print(timestamp);
+    if(this->tracking_mem == nullptr && SD.begin(SD_PIN))
+      this->tracking_mem = new GPSTrackingMemory(timestamp);
+  }
+
   if(curr_screen == Main) {
     this->disp.setTextColor(ST77XX_WHITE, ST77XX_BLACK);
     this->disp.setTextSize(3);
     this->disp.setCursor(40, 25);
     if(gps->time.isValid()) {
       int local_hour = (gps->time.hour()+LOCAL_TIME)%24;
+      if(local_hour < 0)
+        local_hour += 24;
       if(local_hour < 10)
         this->disp.print('0');
       this->disp.print(local_hour);

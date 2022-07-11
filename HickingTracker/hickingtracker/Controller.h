@@ -38,11 +38,10 @@ public:
 	const void refresh();
 private:
   Screen curr_screen = Detail;
-  bool is_SD_initialized = false;
 
 	Sensors sensors {};
   Adafruit_ST7735 disp {TFT_CS, TFT_DC, TFT_RST};
-	//GPSTrackingMemory tracking_mem;
+	GPSTrackingMemory* tracking_mem = nullptr;
 };
 
 
